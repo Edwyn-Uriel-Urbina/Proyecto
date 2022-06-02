@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:urbina/acerca.dart';
+import 'package:urbina/clientes.dart';
+import 'package:urbina/empleados.dart';
+import 'package:urbina/servicios.dart';
+import 'package:urbina/sesion.dart';
+import 'package:urbina/sucursales.dart';
+import 'package:urbina/desarrollador.dart';
 
 void main() => runApp(MyApp());
 
@@ -7,93 +14,199 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       // Application name
-      title: 'Flutter Stateful Clicker Counter',
+      title: 'Gas Natural',
+      // Application theme data, you can set the colors for the application as
+      // you want
       theme: ThemeData(
-        // Application theme data, you can set the colors for the application as
-        // you want
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Clicker Counter Home Page'),
+      // A widget which will be started on application startup
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: '/',
+      routes: {
+        // Cuando naveguemos hacia la ruta "/", crearemos el Widget Pagina1
+        '/paginaSesion': (context) => SesionPage(),
+        // Cuando naveguemos hacia la ruta "/second", crearemos el Widget Pagina2
+        '/paginaServicios': (context) => ServiciosPage(),
+        '/paginaEmpleados': (context) => EmpleadosPage(),
+        '/paginaClientes': (context) => ClientesPage(),
+        '/paginaAcerca': (context) => AcercaPage(),
+        '/paginaSucursales': (context) => SucursalesPage(),
+        '/paginaDesarrollador': (context) => DesarrolladorPage(),
+      },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   final String title;
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        centerTitle: true,
+        title: const Text(
+          'Inicio',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: const Color.fromRGBO(95, 115, 254, 1),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+      drawer: Drawer(
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            const UserAccountsDrawerHeader(
+              // <-- SEE HERE
+              decoration: BoxDecoration(color: const Color.fromRGBO(95, 115, 254, 1)),
+              accountName: Text(
+                "Gas Natural",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              accountEmail: Text(
+                "pinkesh.earth@gmail.com",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              currentAccountPicture: FlutterLogo(),
             ),
-            Text(
-              '$_counter',
-              style: TextStyle(fontSize: 25),
+            ListTile(
+              leading: Icon(
+                Icons.arrow_right_outlined,
+                color: Color.fromRGBO(66, 206, 245, 1),
+              ),
+              title: const Text('Inicio de Sesion'),
+              onTap: () {
+                Navigator.pushNamed(context, '/paginaSesion');
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.api,
+                color: Color.fromRGBO(66, 206, 245, 1),
+              ),
+              title: const Text('Empleados'),
+              onTap: () {
+                Navigator.pushNamed(context, '/paginaEmpleados');
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.umbrella,
+                color: Color.fromRGBO(66, 206, 245, 1),
+              ),
+              title: const Text('Clientes'),
+              onTap: () {
+                Navigator.pushNamed(context, '/paginaClientes');
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.headset_off,
+                color: Color.fromRGBO(66, 206, 245, 1),
+              ),
+              title: const Text('Servicios'),
+              onTap: () {
+                Navigator.pushNamed(context, '/paginaServicios');
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.local_airport,
+                color: Color.fromRGBO(66, 206, 245, 1),
+              ),
+              title: const Text('Sucursales'),
+              onTap: () {
+                Navigator.pushNamed(context, '/paginaSucursales');
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.help,
+                color: Color.fromRGBO(66, 206, 245, 1),
+              ),
+              title: const Text('Acerca de la App'),
+              onTap: () {
+                Navigator.pushNamed(context, '/paginaAcerca');
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.fireplace,
+                color: Color.fromRGBO(66, 206, 245, 1),
+              ),
+              title: const Text('Desarrollador'),
+              onTap: () {
+                Navigator.pushNamed(context, '/paginaDesarrollador');
+              },
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF5F73FE),
+              Color(0xCE002D62)
+            ],
+            stops: [
+              0,
+              1
+            ],
+            begin: AlignmentDirectional(1, -1),
+            end: AlignmentDirectional(-1, 1),
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.network(
+              'https://raw.githubusercontent.com/Edwyn-Uriel-Urbina/Gpo-6toI-Mis-Imagenes-UII/main/Gas%20Natural/Logo.png',
+              width: 220,
+              height: 140,
+              fit: BoxFit.fitWidth,
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+              child: Text(
+                'Bienvenido/a',
+                style: TextStyle(
+                  fontFamily: 'Lexend Deca',
+                  color: Colors.white,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 120),
+              child: Text(
+                'Más económico que otros combustibles.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Lexend Deca',
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
